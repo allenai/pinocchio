@@ -5,6 +5,40 @@ This Repo contains the source code for [Don't Say What You Don't Know: Improving
 ## Overview 
 
 
+## Running Pinocchio 
+
+### Minimal starter code for the original implementation in transformers 2
+
+#### Installation 
+
+```bash
+pip install -r requirements.txt
+```
+It will install a customized version of [HuggingFace transformers](https://github.com/dakinggg/transformers/tree/my_branch) with some edits to the beam search code. 
+
+#### Use Pinocchio with BART on XSUM 
+
+```bash
+python example.py output.json
+```
+Right now we only support running with BART. 
+
+#### Explanation of the code 
+
+We change the [beam search decoding process](https://github.com/dakinggg/transformers/blob/defbd001072dffbedf03c7f9eb880f2836c640e3/src/transformers/modeling_utils.py#L1333) by 
+1. monitoring additional metrics like token entropy / attribution for each generation step  
+2. adding a customized `beam_search_scorer` and other changes to the decoding process for the constrained beam search algorithm 
+
+And the `generic_text_predictions` function uses the updated beam search decoding code and parse the outputs. 
+
+### Adapting the code to transformers>4
+
+[WIP]
+
+## Data Releases 
+
+[WIP]
+
 ## Cite Our Work 
 
 ```
