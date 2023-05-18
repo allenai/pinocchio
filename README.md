@@ -12,14 +12,19 @@ This Repo contains the source code for [Don't Say What You Don't Know: Improving
 #### Installation 
 
 ```bash
+conda create -n pinocchio python=3.7
 pip install -r requirements.txt
+python -m spacy download en_core_web_sm
 ```
 It will install a customized version of [HuggingFace transformers](https://github.com/dakinggg/transformers/tree/my_branch) with some edits to the beam search code. 
 
 #### Use Pinocchio with BART on XSUM 
 
 ```bash
-python example.py output.json
+cd piocchio/ # the root dir of this repo 
+
+# you might want to make sure there's one GPU for running this  
+python example.py output.json --gpu_id 0
 ```
 Right now we only support running with BART. 
 
