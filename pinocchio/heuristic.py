@@ -7,6 +7,11 @@ import torch
 from nltk.corpus import stopwords
 from torch.nn import CosineSimilarity
 
+# load the current path of this installed repo
+lib_path = os.path.dirname(os.path.realpath(__file__))
+common_names = json.load(open(os.path.join(lib_path, "common_names.json"), "r"))
+
+
 nlp = spacy.load("en_core_web_sm", disable=["parser", "tagger", "ner"])
 nlp_ner = spacy.load("en_core_web_sm", disable=["parser", "tagger"])
 stop_words = set(stopwords.words("english"))
@@ -239,5 +244,14 @@ def beam_search_token_scorer(
             )
             and (not without_common)
         ):
+            return 1
+    if predicted_token.strip() in common_names:
+        doc = nlp_ner(previous_context + predicted_token)
+        ent_found = False
+        for ent in doc.ents:
+            if ent.text == predicted_token.strip() and ent.label_ == "PERSON":
+                ent_found = True
+
+        if predicted_token.strip() in common_names and ent_found:
             return 1
     return 0
