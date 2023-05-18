@@ -2,9 +2,6 @@
 
 This Repo contains the source code for [Don't Say What You Don't Know: Improving the Consistency of Abstractive Summarization by Constraining Beam Search](https://arxiv.org/abs/2203.08436).
 
-## Overview 
-
-
 ## Running Pinocchio 
 
 ### Minimal starter code for the original implementation in transformers 2
